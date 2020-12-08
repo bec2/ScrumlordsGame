@@ -231,26 +231,26 @@
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-        <HintPath>C:/Users/alexg/ScrumlordsGame/Library/PackageCache/com.unity.ext.nunit@1.0.5/net35/unity-custom/nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="Photon3Unity3D">
         <HintPath>C:/Users/alexg/ScrumlordsGame/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
-    </Reference>
-    <Reference Include="QuatCompress">
-        <HintPath>C:/Users/alexg/ScrumlordsGame/Assets/Photon/PhotonUtilities/TransformCrusher/plugins/QuatCompress.dll</HintPath>
-    </Reference>
-    <Reference Include="ByteConverter">
-        <HintPath>C:/Users/alexg/ScrumlordsGame/Assets/Photon/PhotonUtilities/Compression/plugins/ByteConverter.dll</HintPath>
     </Reference>
     <Reference Include="websocket-sharp">
         <HintPath>C:/Users/alexg/ScrumlordsGame/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="HalFloat">
-        <HintPath>C:/Users/alexg/ScrumlordsGame/Assets/Photon/PhotonUtilities/TransformCrusher/plugins/HalFloat.dll</HintPath>
+    <Reference Include="ByteConverter">
+        <HintPath>C:/Users/alexg/ScrumlordsGame/Assets/Photon/PhotonUtilities/Compression/plugins/ByteConverter.dll</HintPath>
     </Reference>
     <Reference Include="FloatCrusher">
         <HintPath>C:/Users/alexg/ScrumlordsGame/Assets/Photon/PhotonUtilities/TransformCrusher/plugins/FloatCrusher.dll</HintPath>
+    </Reference>
+    <Reference Include="HalFloat">
+        <HintPath>C:/Users/alexg/ScrumlordsGame/Assets/Photon/PhotonUtilities/TransformCrusher/plugins/HalFloat.dll</HintPath>
+    </Reference>
+    <Reference Include="QuatCompress">
+        <HintPath>C:/Users/alexg/ScrumlordsGame/Assets/Photon/PhotonUtilities/TransformCrusher/plugins/QuatCompress.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+        <HintPath>C:/Users/alexg/ScrumlordsGame/Library/PackageCache/com.unity.ext.nunit@1.0.5/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
