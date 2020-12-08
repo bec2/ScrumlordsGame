@@ -165,6 +165,7 @@
      <Compile Include="Assets\Photon\Simple\Utilities\GhostWorld\Haunted.cs" />
      <Compile Include="Assets\Photon\Simple\Components\Assistants\UtilityAssists.cs" />
      <Compile Include="Assets\Photon\Simple\Components\SyncState\SyncSpawnTimer.cs" />
+     <Compile Include="Assets\Scripts\PlayerNameInputField.cs" />
      <Compile Include="Assets\Photon\Simple\Utilities\Component\CopyComponent.cs" />
      <Compile Include="Assets\Photon\Simple\Components\ContactSystems\SyncInventory\Interfaces\IInventorySystem.cs" />
      <Compile Include="Assets\Photon\Simple\Utilities\GUITools\CustomMaskEditors\MaskLogic.cs" />
@@ -268,7 +269,6 @@
      <Compile Include="Assets\Photon\Simple\Core\GenericHitscan\HitscanComponent.cs" />
      <Compile Include="Assets\Photon\Simple\Components\SyncState\Enums\ObjState.cs" />
      <Compile Include="Assets\Photon\Simple\Utilities\GhostWorld\HauntedStatic.cs" />
-     <Compile Include="Assets\Scripts\PlayerNameInputField.cs" />
      <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.xml" />
      <None Include="Assets\Photon\PhotonUnityNetworking\changelog.txt" />
      <None Include="Assets\Photon\PhotonUtilities\PackObject\_GeneratedPackExtensions\PackObject Extensions.txt" />

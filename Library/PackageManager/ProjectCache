@@ -5,7 +5,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637430221480293897
+      ticks: 637430281124335526
     m_Hash: 402586594
   m_LockFileStatus:
     m_FilePath: C:/Users/alexg/ScrumlordsGame/Packages/packages-lock.json
@@ -13,7 +13,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637430221692511738
+      ticks: 637430283207919838
     m_Hash: 301487906
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
