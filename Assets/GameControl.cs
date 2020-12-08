@@ -37,7 +37,7 @@ public class GameControl : MonoBehaviour
 
             player1.GetComponent<FollowThePath>().moveAllowed = false;
             player1MoveText.gameObject.SetActive(false);
-            player2MoveText.gameObject.SetActive(false);
+            player2MoveText.gameObject.SetActive(true);
             player1StartWaypoint = player1.GetComponent<FollowThePath>().waypointIndex - 1;
 
         }
