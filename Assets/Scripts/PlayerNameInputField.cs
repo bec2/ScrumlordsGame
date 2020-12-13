@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
@@ -10,6 +11,13 @@ using Photon.Realtime;
 [RequireComponent(typeof(InputField))]
 public class PlayerNameInputField : MonoBehaviour
 {
+    #region 
+    [SerializeField] 
+    private TMP_InputField nameInputField = null;
+    [SerializeField] 
+    private Button startButton = null;
+    #endregion
+
     #region Private Constants
     // Store Player Pref Key to avoid typos
     const string playerNamePrefKey = "PlayerName";
@@ -41,6 +49,8 @@ public class PlayerNameInputField : MonoBehaviour
     // <param name="value">The name of the Player</param>
     public void SetPlayerName(string value)
     {
+        
+        startButton.interactable = !string.IsNullOrEmpty(value);
         if (string.IsNullOrEmpty(value))
         {
             Debug.LogError("Player name is null or empty.");
