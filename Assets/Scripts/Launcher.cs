@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -21,6 +22,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     // The label to inform connection is in progress.
     [SerializeField]
     private GameObject progressLabel;
+    [SerializeField]
+    private TextMeshProUGUI waitingStatusText;
     #endregion
     
 
@@ -104,6 +107,31 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
+        int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+
+        if (playerCount != maxPlayersPerRoom) 
+        {
+            waitingStatusText.text = "Waiting for Oppenent";
+            Debug.Log("Client is waiting for Opponent...");
+        }
+        else 
+        {
+            waitingStatusText.text = "Opponent found";
+            Debug.Log("Match is ready to begin");
+        }
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersPerRoom)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            
+            waitingStatusText.text = "Opponent Found";
+            Debug.Log("Match is ready to begin");
+
+            PhotonNetwork.LoadLevel("SampleScene");
+        }
     }
     #endregion
 
