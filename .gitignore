@@ -1,11 +1,5 @@
 .DS_Store
 
-Library/APIUpdater/
-
-Library/Artifacts/00/
-
-Library/Artifacts/02/
-
 Library/
 
 Temp/
@@ -25,3 +19,5 @@ Temp/
 obj/Debug/
 
 Assets/Photon/PhotonUtilities/PackObject/CodeGen/Editor/Resources/TypeCatalogue.asset
+
+Logs/
