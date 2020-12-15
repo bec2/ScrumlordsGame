@@ -1,6 +1,6 @@
 Temp/UnityLockfile
 
-.vs/ScrumlordsGame/xs/project-cache/
+.vs
 
 .DS_Store
 
@@ -14,9 +14,9 @@ Library/
 
 Temp/
 
-.vs/ScrumlordsGame/xs/
-
 .vsconfig
+
+.vscode
 
 *.cs
 
