@@ -269,6 +269,7 @@
      <Compile Include="Assets\Photon\Simple\Core\GenericHitscan\HitscanComponent.cs" />
      <Compile Include="Assets\Photon\Simple\Components\SyncState\Enums\ObjState.cs" />
      <Compile Include="Assets\Photon\Simple\Utilities\GhostWorld\HauntedStatic.cs" />
+     <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.xml" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

@@ -12,10 +12,11 @@ using Photon.Realtime;
 public class PlayerNameInputField : MonoBehaviour
 {
     #region 
-    [SerializeField] 
+    [SerializeField]
     private TMP_InputField nameInputField = null;
-    [SerializeField] 
-    private Button startButton = null;
+    [SerializeField]
+    private Button setNameButton = null;
+
     #endregion
 
     #region Private Constants
@@ -27,39 +28,43 @@ public class PlayerNameInputField : MonoBehaviour
 
     #region MonoBehaviour Callbacks
     // Monobehaviour method called on gameObject by Unity during initialisation phase.
-    void start() 
+    private void start() => SetUpInputField();
+    
+    private void SetUpInputField()
     {
-        string defaultName = string.Empty;
-        InputField inputField = this.GetComponent<InputField>();
-        if (inputField!=null)
+        if(PlayerPrefs.HasKey(playerNamePrefKey))
         {
-            if(PlayerPrefs.HasKey(playerNamePrefKey))
-            {
-                inputField.text = defaultName;
-            }
+            return;
         }
-        PhotonNetwork.NickName = defaultName;
+        
+        string defaultName = PlayerPrefs.GetString(playerNamePrefKey);
+        nameInputField.text = defaultName;
+
+        SetPlayerName(defaultName);
     }
     #endregion
 
 
 
     #region Public Methods
-    // Sets player name and saves it in PlayerPrefs for future sessions.
-    // <param name="value">The name of the Player</param>
-    public void SetPlayerName(string value)
+    public void SetPlayerName(string name)
     {
-        
-        startButton.interactable = !string.IsNullOrEmpty(value);
-        if (string.IsNullOrEmpty(value))
+        if (string.IsNullOrEmpty(name))
         {
-            Debug.LogError("Player name is null or empty.");
-            return;
+            setNameButton.interactable = false;
         }
-        PhotonNetwork.NickName = value;
-        PlayerPrefs.SetString(playerNamePrefKey, value);
     }
 
-    #endregion 
+    // Sets player name and saves it in PlayerPrefs for future sessions.
+    // <param name="value">The name of the Player</param>
+    public void SavePlayerName()
+    {
+        string playerName = nameInputField.text;
+        PhotonNetwork.NickName = playerName;
+
+        PlayerPrefs.SetString(playerNamePrefKey, playerName);
+        
+    }
+    #endregion
 
 }
