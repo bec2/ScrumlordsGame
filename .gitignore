@@ -14,8 +14,6 @@ Temp/
 
 *.sln
 
-*.csproj
-
 obj/Debug/
 
 Assets/Photon/PhotonUtilities/PackObject/CodeGen/Editor/Resources/TypeCatalogue.asset
