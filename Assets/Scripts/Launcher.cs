@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -10,7 +11,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     #region Private Serializable Fields
     // Max players per room. When max players is reached, a new room is created.
     [SerializeField]
-    private byte maxPlayersPerRoom = 4;
+    private byte maxPlayersPerRoom = 1;
     #endregion
 
 
@@ -18,12 +19,15 @@ public class Launcher : MonoBehaviourPunCallbacks
     #region Public Fields
     // The UI panel that allows the player to enter name, connect and play.
     [SerializeField]
-    private GameObject controlPanel;
+    private GameObject findOpponentPanel;
     // The label to inform connection is in progress.
     [SerializeField]
-    private GameObject progressLabel;
+    private GameObject waitingStatusPanel;
     [SerializeField]
     private TextMeshProUGUI waitingStatusText;
+    [SerializeField]
+    private Button cancelMatchMaking = null;
+    bool isConnecting;
     #endregion
     
 
@@ -31,7 +35,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     #region Private Fields
     // This is the clients version number.
     // Users are seperated from each other by gameVersion. (Allows you to make breaking changes)
-    string gameVersion = "1.0";
+    string gameVersion = "0.1";
     #endregion
 
    
@@ -42,28 +46,24 @@ public class Launcher : MonoBehaviourPunCallbacks
     
     #region MonoBehaviour CallBacks
     // MonoBehaviour method called on GameObject by Unity during early initialization phase
-    void Awake()
+    private void Awake()
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
+        
+        findOpponentPanel.SetActive(false);
+        waitingStatusPanel.SetActive(false);
+    } 
         // CRITICAL
         // This makes sure we can use PhotonNetwork.LoadLevel() on master client and all clients in the same room sync automatically
-        PhotonNetwork.AutomaticallySyncScene = true;
-    }
+        
 
-    void start()
-    {
-        progressLabel.SetActive(false);
-        controlPanel.SetActive(true);
-    }
-    #endregion
+    public void FindOpponent()
+    {   
+        findOpponentPanel.SetActive(false);
+        waitingStatusPanel.SetActive(true);
 
-
-
-    #region Public Methods
-    // Start the connection process
-    public void Connect()
-    {
-        progressLabel.SetActive(true);
-        controlPanel.SetActive(false);
+        waitingStatusText.text = "Searching...";
+    
         // If already connected, we attempt joining a random room
         if (PhotonNetwork.IsConnected)
         {
@@ -74,11 +74,18 @@ public class Launcher : MonoBehaviourPunCallbacks
         else
         {
             // We MUST first and foremost connect to Photon Online Server
-            PhotonNetwork.ConnectUsingSettings();
+            isConnecting = PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.GameVersion = gameVersion;
         }
         #endregion
     }
+
+    public void LeaveRoom()
+        {
+            PhotonNetwork.LeaveRoom();
+            PhotonNetwork.Disconnect();
+            PhotonNetwork.LoadLevel("Launcher");
+        }
 
 
 
@@ -87,13 +94,19 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         Debug.Log("Launcher: OnConnectedToMaster() was called by PUN");
         // We first try to join an existing room. If failed we call OnJoinRandomFailed().
-        PhotonNetwork.JoinRandomRoom();
+        if (isConnecting)
+        {
+            // #Critical: The first we try to do is to join a potential existing room. If there is, good, else, we'll be called back with OnJoinRandomFailed()
+            PhotonNetwork.JoinRandomRoom();
+            isConnecting = false;
+        }
     }
     
     public override void OnDisconnected(DisconnectCause cause)
     {
-        progressLabel.SetActive(false);
-        controlPanel.SetActive(true);
+        findOpponentPanel.SetActive(true);
+        waitingStatusPanel.SetActive(false);
+        isConnecting = false;
         Debug.LogWarningFormat("Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
     }
 
@@ -109,16 +122,17 @@ public class Launcher : MonoBehaviourPunCallbacks
         Debug.Log("Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
 
-        if (playerCount != maxPlayersPerRoom) 
+        // #Critical: We only load if we are the first player, else we rely on `PhotonNetwork.AutomaticallySyncScene` to sync our instance scene.
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
-            waitingStatusText.text = "Waiting for Oppenent";
-            Debug.Log("Client is waiting for Opponent...");
+            Debug.Log("We load the 'Room for 1' ");
+
+
+            // #Critical
+            // Load the Room Level.
+            PhotonNetwork.LoadLevel("Room for 1");
         }
-        else 
-        {
-            waitingStatusText.text = "Opponent found";
-            Debug.Log("Match is ready to begin");
-        }
+
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
