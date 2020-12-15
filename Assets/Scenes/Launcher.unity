@@ -480,7 +480,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 495180385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b4aec46a5385094d9ae830e6f9897d7, type: 3}
+  m_Script: {fileID: 11500000, guid: ffcb56ebbfec24881977dcba5933c872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxPlayersPerRoom: 1
@@ -1323,11 +1323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b4aec46a5385094d9ae830e6f9897d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPlayersPerRoom: 4
-  findOpponentPanel: {fileID: 1646631632}
-  waitingStatusPanel: {fileID: 2086527070}
-  waitingStatusText: {fileID: 1000183340}
-  cancelMatchMaking: {fileID: 0}
 --- !u!1 &1601665857
 GameObject:
   m_ObjectHideFlags: 0
@@ -1379,8 +1374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71e71d821f7a8242a80b41094dc53b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameInputField: {fileID: 1343882495}
-  setNameButton: {fileID: 1848832283}
 --- !u!114 &1601665860
 MonoBehaviour:
   m_ObjectHideFlags: 0
