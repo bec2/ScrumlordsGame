@@ -20,23 +20,40 @@ namespace Photon.Compression.Internal
     [System.Serializable]
     public class TypeCatalogue : ScriptableObject
     {
+
         public static char _ = Path.DirectorySeparatorChar;
-        public static string PACKABLE_PATH = "Assets" + _ + "Photon" + _ + "PhotonUtilities" + _ + "PackObject" + _;
-        public static string GENERATED_SUBFOLDER = "_GeneratedPackExtensions";
-        public static string GENERATED_PATH = PACKABLE_PATH + GENERATED_SUBFOLDER + _;
-        public static string CODEGEN_EDITOR_RESOURCE_PATH = PACKABLE_PATH + "CodeGen" + _ + "Editor" + _ + "Resources" + _;
 
         public const string MENU_PATH = "Window/Photon Unity Networking/";
+
+        public const string PHOTON_UTILITIES_FOLDER_GUID = "1e336284e5d53884a957a795a62474a4";
+        public const string GENERATED_SUBFOLDER = "_GeneratedPackExtensions";
+
+        public static string photonUtilitiesFolderPath;
+        public static string packObjectFolderPath; // = "Assets" + _ + "Photon" + _ + "PhotonUtilities" + _ + "PackObject" + _;
+        public static string codeGenFolderPath; // = packObjectFolderPath + GENERATED_SUBFOLDER + _;
+        public static string codegenEditorResourcePath; // = packObjectFolderPath + "CodeGen" + _ + "Editor" + _ + "Resources" + _;
+
+        private static void FindPaths() {
+
+            photonUtilitiesFolderPath = AssetDatabase.GUIDToAssetPath(PHOTON_UTILITIES_FOLDER_GUID);
+
+            if (photonUtilitiesFolderPath == "")
+                Debug.LogWarning("Photon/PhotonUtilities folder has had its .meta file deleted. This can lead to unpredictable errors. Please restore.");
+            else
+            {
+                packObjectFolderPath = photonUtilitiesFolderPath + _ + "PackObject" + _;
+                codeGenFolderPath = packObjectFolderPath + GENERATED_SUBFOLDER + _;
+                codegenEditorResourcePath = packObjectFolderPath + "CodeGen" + _ + "Editor" + _ + "Resources" + _;
+            }
+        }
 
         public static TypeCatalogue single;
 
         [UnityEditor.InitializeOnLoadMethod]
         public static void Initialize()
         {
+            FindPaths();
             EnsureExists();
-
-            //EditorApplication.playModeStateChanged -= HandleOnPlayModeChanged;
-            //EditorApplication.playModeStateChanged += HandleOnPlayModeChanged;
 
             CompilationPipeline.assemblyCompilationFinished -= CompileFinished;
             CompilationPipeline.assemblyCompilationFinished += CompileFinished;
@@ -81,6 +98,9 @@ namespace Photon.Compression.Internal
                 // Check if this is a codegen file by its path and having Pack_ in the name.
                 if (arg.type == CompilerMessageType.Error && arg.file.Contains(GENERATED_SUBFOLDER) && arg.file.Contains("Pack_"))
                 {
+                    // TEST - added to delete permanent loop due to users moving folders around.
+                    File.Delete(arg.file);
+
                     // Search entire project for codegen that doesn't belong if we detected a name collision (user moved old folder most likely)
                     if (!cleanOrphanCodegen && arg.message.Contains("already contains"))
                     {
@@ -98,7 +118,7 @@ namespace Photon.Compression.Internal
                     foreach (var f in possibleCodegen)
                     {
                         Debug.Log("possible: " + f);
-                        if (f.Contains(GENERATED_SUBFOLDER) && !f.Contains(GENERATED_PATH))
+                        if (f.Contains(GENERATED_SUBFOLDER) && !f.Contains(codeGenFolderPath))
                         {
                             Debug.LogWarning("Codegen appears to have been moved. Deleting. " + f);
                             File.Delete(f);
@@ -160,7 +180,8 @@ namespace Photon.Compression.Internal
                 return;
             }
 
-            Debug.Log("Rescanning assembly for [PackObject] changes.");
+            Debug.Log("Rescanning assembly for [PackObject] and [SyncVar] changes. " +
+                "If you are not using Simple SyncVars, this scan can be disabled by un-checking 'Auto Generate' in PackObjectSettings.");
             rescanPending = true;
 
         }
@@ -180,13 +201,13 @@ namespace Photon.Compression.Internal
             {
                 single = ScriptableObject.CreateInstance<TypeCatalogue>();
 
-                if (!Directory.Exists(CODEGEN_EDITOR_RESOURCE_PATH))
+                if (!Directory.Exists(codegenEditorResourcePath))
                 {
-                    Directory.CreateDirectory(CODEGEN_EDITOR_RESOURCE_PATH);
-                    Debug.Log("Expected directory for TypeCatalogue ScriptableObject asset does not exist. Creating :" + CODEGEN_EDITOR_RESOURCE_PATH);
+                    Directory.CreateDirectory(codegenEditorResourcePath);
+                    Debug.Log("Expected directory for TypeCatalogue ScriptableObject asset does not exist. Creating :" + codegenEditorResourcePath);
                 }
 
-                AssetDatabase.CreateAsset(single, CODEGEN_EDITOR_RESOURCE_PATH + "TypeCatalogue.asset");
+                AssetDatabase.CreateAsset(single, codegenEditorResourcePath + "TypeCatalogue.asset");
                 AssetDatabase.Refresh();
             }
 
@@ -199,13 +220,13 @@ namespace Photon.Compression.Internal
         public static void DeleteAllPackCodeGen()
         {
             /// Get collection of current CodeGen files
-            if (!Directory.Exists(GENERATED_PATH))
+            if (!Directory.Exists(codeGenFolderPath))
             {
-                Debug.LogWarning("Unable to find target directory for generated code. Creating: " + GENERATED_PATH);
-                Directory.CreateDirectory(GENERATED_PATH);
+                Debug.LogWarning("Unable to find target directory for generated code. Creating: " + codeGenFolderPath);
+                Directory.CreateDirectory(codeGenFolderPath);
             }
 
-            DirectoryInfo d = new DirectoryInfo(GENERATED_PATH);//Assuming Test is your Folder
+            DirectoryInfo d = new DirectoryInfo(codeGenFolderPath);//Assuming Test is your Folder
             FileInfo[] files = d.GetFiles("*.cs"); //Getting Text files
 
             if (files.Length == 0)
@@ -248,7 +269,7 @@ namespace Photon.Compression.Internal
             bool haschanged = false;
 
             /// Get collection of current CodeGen files
-            DirectoryInfo d = new DirectoryInfo(GENERATED_PATH);//Assuming Test is your Folder
+            DirectoryInfo d = new DirectoryInfo(codeGenFolderPath);//Assuming Test is your Folder
 
             /// Create directory if its gone missing.
             if (!d.Exists)
@@ -261,7 +282,7 @@ namespace Photon.Compression.Internal
             /// Make record of all codegen files, so we can clean up any unassociated ones.
             reusableFilePaths.Clear();
             foreach (var f in files)
-                reusableFilePaths.Add(GENERATED_PATH + f.Name);
+                reusableFilePaths.Add(codeGenFolderPath + f.Name);
 
             /// Check every type in the ASM for PackObj, and Catalogue them
             foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
@@ -295,8 +316,15 @@ namespace Photon.Compression.Internal
 
             if (haschanged)
             {
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
+                try
+                {
+                    AssetDatabase.SaveAssets();
+                    AssetDatabase.Refresh();
+                }
+                catch
+                {
+
+                }
             }
 
             watch0.Stop();
@@ -471,7 +499,7 @@ namespace Photon.Compression.Internal
         public static string GetExtFilepath(Type type)
         {
             string filename = "Pack_" + type.Name + ".cs";
-            return GENERATED_PATH + filename;
+            return codeGenFolderPath + filename;
         }
     }
 }

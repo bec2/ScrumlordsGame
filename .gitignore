@@ -2,3 +2,14 @@ Temp/
 Library/
 .vscode/
 .vs/
+Library/PackageManager/ProjectCache
+.DS_Store
+.vsconfig
+Library/ArtifactDB
+*.backup
+
+obj/
+
+*.csproj
+
+*.meta

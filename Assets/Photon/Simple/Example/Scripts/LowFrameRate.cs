@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using emotitron.Utilities.Networking;
-using Photon.Pun;
 
 #if PUN_2_OR_NEWER
-
+using Photon.Pun;
 #endif
 
-public class LowFrameRate : MonoBehaviourPunCallbacks
+public class LowFrameRate :
 #if PUN_2_OR_NEWER
 
-	
+	MonoBehaviourPunCallbacks
 {
 
 	public enum SlowWhat { Both, Server, Client }
@@ -19,7 +18,7 @@ public class LowFrameRate : MonoBehaviourPunCallbacks
 	public int targetFrameRate = 10;
 
 
-    public override void OnJoinedRoom()
+	public override void OnJoinedRoom()
 	{
 		base.OnJoinedRoom();
 
