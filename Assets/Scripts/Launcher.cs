@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -25,8 +25,6 @@ public class Launcher : MonoBehaviourPunCallbacks
     private GameObject waitingStatusPanel;
     [SerializeField]
     private TextMeshProUGUI waitingStatusText;
-    [SerializeField]
-    private Button cancelMatchMaking = null;
     bool isConnecting;
     #endregion
     
@@ -79,14 +77,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         #endregion
     }
-
-    public void LeaveRoom()
-        {
-            PhotonNetwork.LeaveRoom();
-            PhotonNetwork.Disconnect();
-            PhotonNetwork.LoadLevel("Launcher");
-        }
-
 
 
     #region MonoBehaviourPunCallbacks Callbacks     
