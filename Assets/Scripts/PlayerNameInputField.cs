@@ -1,12 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
-// using Photon.Pun;
-//using Photon.Realtime;
-
+using Photon.Pun;
 
 // Player name input. Allows user to enter custom name.
 [RequireComponent(typeof(InputField))]
@@ -61,7 +56,7 @@ public class PlayerNameInputField : MonoBehaviour
     public void SavePlayerName()
     {
         string playerName = nameInputField.text;
-        //PhotonNetwork.NickName = playerName;
+        PhotonNetwork.NickName = playerName;
 
         PlayerPrefs.SetString(playerNamePrefKey, playerName);
         
