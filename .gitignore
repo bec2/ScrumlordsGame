@@ -1,1 +1,4 @@
-Temp/UnityLockfile
+Temp/
+Library/
+.vscode/
+.vs/
