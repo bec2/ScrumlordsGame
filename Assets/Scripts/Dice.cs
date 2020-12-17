@@ -37,9 +37,17 @@ public class Dice : MonoBehaviour {
         if(whosTurn == 1)
         {
             GameControl.MovePlayer(1);
+            if(GameControl.diceSideThrown == 6)
+            {
+                P1ScoreScript.p1ScoreValue += 6;
+            }
         } else if (whosTurn == -1)
         {
             GameControl.MovePlayer(2);
+            if (GameControl.diceSideThrown == 6)
+            {
+                P2ScoreScript.p2ScoreValue += 6;
+            }
         }
         whosTurn *= -1;
         coroutineAllowed = true;

@@ -39,5 +39,6 @@ public class FollowThePath : MonoBehaviour
                 waypointIndex += 1;
             }
         }
+        //Debug.Log("Index: " + waypointIndex);
     }
 }
