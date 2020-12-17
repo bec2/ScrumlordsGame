@@ -1,2 +1,0 @@
-/Users/kaunamohammed/Documents/MscCS/Team Project CS4870/ScrumlordsGame/obj/Debug/PhotonChat.csprojAssemblyReference.cache
-/Users/kaunamohammed/Documents/MscCS/Team Project CS4870/ScrumlordsGame/obj/Debug/PhotonChat.csproj.CoreCompileInputs.cache
