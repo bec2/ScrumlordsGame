@@ -1,0 +1,38 @@
+﻿<Properties StartupConfiguration="{7E815F70-8C73-0580-7B0B-26F808484F97}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Launcher.cs">
+    <Files>
+      <File FileName="Assets/Scripts/PlayerNameInputField.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Launcher.cs" Line="90" Column="44" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ScrumlordsGame" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Photon" expanded="True" />
+              <Node name="Scripts" expanded="True">
+                <Node name="PlayerNameInputField.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>EmoCompressUtilsASMDEF.csproj</String>
+    <String>PhotonUnityNetworking.Utilities.Culling.Editor.csproj</String>
+    <String>PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj</String>
+    <String>Assembly-CSharp-Editor.csproj</String>
+    <String>PhotonChat.csproj</String>
+    <String>PhotonUnityNetworking.csproj</String>
+    <String>HalfFloatASMDEF.csproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="a7e04015-7fec-436f-a595-59d7809c766a" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
