@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class GameControl : MonoBehaviour
 {
@@ -27,8 +28,22 @@ public class GameControl : MonoBehaviour
         player1MoveText = GameObject.Find("Player1MoveText");
         player2MoveText = GameObject.Find("Player2MoveText");
 
-        player1 = GameObject.Find("Player1");
-        player2 = GameObject.Find("Player2");
+        // player1 = GameObject.Find("Player1");
+        // player2 = GameObject.Find("Player2");
+
+        if (PhotonNetwork.IsConnected) 
+        {
+            if (PhotonNetwork.IsMasterClient) 
+            {
+                Debug.Log("Initialising Player 1");
+                player1 = PhotonNetwork.Instantiate("Player1", player1.transform.position, Quaternion.identity);
+
+            } else 
+            {
+                Debug.Log("Initialising Player 2");
+                player2 = PhotonNetwork.Instantiate("Player2", player2.transform.position, Quaternion.identity);
+            }
+        }
 
         player1.GetComponent<FollowThePath>().moveAllowed = false;
         player2.GetComponent<FollowThePath>().moveAllowed = false;
@@ -36,6 +51,8 @@ public class GameControl : MonoBehaviour
         whoWinsText.gameObject.SetActive(false);
         player1MoveText.gameObject.SetActive(true);
         player2MoveText.gameObject.SetActive(false);
+
+        
     }
 
     void Update()
