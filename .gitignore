@@ -64,3 +64,7 @@ ProjectSettings/
 *.meta
 
 Assets/Photon/PhotonUtilities/PackObject/CodeGen/Editor/Resources/TypeCatalogue.asset
+
+Test.app/Contents/Frameworks/
+
+Test.app/Contents/
