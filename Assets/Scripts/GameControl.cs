@@ -36,12 +36,13 @@ public class GameControl : MonoBehaviour
             if (PhotonNetwork.IsMasterClient) 
             {
                 Debug.Log("Initialising Player 1");
-                player1 = PhotonNetwork.Instantiate("Player1", player1.transform.position, Quaternion.identity);
+                player1 = PhotonNetwork.Instantiate("Player1", new Vector3(-12, -1, 0), Quaternion.identity);
 
             } else 
             {
                 Debug.Log("Initialising Player 2");
-                player2 = PhotonNetwork.Instantiate("Player2", player2.transform.position, Quaternion.identity);
+                
+                player2 = PhotonNetwork.Instantiate("Player2", new Vector3(-12, -1, 0), Quaternion.identity);
             }
         }
 
