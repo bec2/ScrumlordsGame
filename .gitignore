@@ -61,3 +61,6 @@ crashlytics-build.properties
 UserSettings/
 ProjectSettings/
 .DS_Store
+*.meta
+
+Assets/Photon/PhotonUtilities/PackObject/CodeGen/Editor/Resources/TypeCatalogue.asset
