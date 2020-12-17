@@ -8,3 +8,7 @@ obj/
 ProjectSettings/
 
 UserSettings/
+
+Test.app/Contents/Frameworks/
+
+Test.app/Contents/

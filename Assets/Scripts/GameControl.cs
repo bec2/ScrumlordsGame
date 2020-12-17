@@ -28,22 +28,25 @@ public class GameControl : MonoBehaviour
         player1MoveText = GameObject.Find("Player1MoveText");
         player2MoveText = GameObject.Find("Player2MoveText");
 
-        // player1 = GameObject.Find("Player1");
-        // player2 = GameObject.Find("Player2");
-
+        
         if (PhotonNetwork.IsConnected) 
         {
-            if (PhotonNetwork.IsMasterClient) 
-            {
-                Debug.Log("Initialising Player 1");
-                player1 = PhotonNetwork.Instantiate("Player1", new Vector3(-12, -1, 0), Quaternion.identity);
 
-            } else 
-            {
-                Debug.Log("Initialising Player 2");
-                
-                player2 = PhotonNetwork.Instantiate("Player2", new Vector3(-12, -1, 0), Quaternion.identity);
-            }
+            player1 = GameObject.Find("Player1");
+            player2 = GameObject.Find("Player2");
+            // if (PhotonNetwork.IsMasterClient) 
+            // {
+            //     Debug.Log("Initialising Player 1");
+                // player1 = PhotonNetwork.Instantiate("Player", new Vector3(-12, -1, 0), Quaternion.identity);
+                player1.name = "Kauna";
+                // Debug.Log(player1.transform.position);
+            // } else 
+            // {
+            //     Debug.Log("Initialising Player 2");
+                // Debug.Log(player1.ToString());
+                // player2 = PhotonNetwork.Instantiate("Player", new Vector3(-12, -1, 0), Quaternion.identity);
+                player2.name = "Alex";
+        //     }
         }
 
         player1.GetComponent<FollowThePath>().moveAllowed = false;
