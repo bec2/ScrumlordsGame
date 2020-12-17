@@ -1,0 +1,7 @@
+.vscode/
+.vsconfig
+.vs/
+.DS_Store
+Temp/
+Logs/
+obj/
