@@ -134,6 +134,10 @@ public class Launcher : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel("Game for 2");
         }
     }
+
+    
+
+    
     #endregion
 
 }
